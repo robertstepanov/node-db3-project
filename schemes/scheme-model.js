@@ -35,9 +35,28 @@ function remove(id) {
     .del();
 }
 
+// function findSteps(id) {
+//   return db("schemes")
+//     .where({ id })
+//     .first();
+// }
+
+// function findSteps(id) {
+//   return db("schemes")
+//     .join("schemes", "schemes.scheme_name", "steps.scheme_name")
+//     .select("steps.step_number", "schemes.scheme_name")
+//     .where("scheme_name", id);
+// }
+
+// select schemes.scheme_name, steps.id, steps.instructions from schemes
+// inner join steps
+// on schemes.id = steps.scheme_id
+
 function findSteps(id) {
   return db("schemes")
-    .join("steps", "steps.id", "schemes.step_id")
-    .select("schemes.scheme_name", "steps.instructions as saidBy")
-    .where("scheme_id", id);
+    .select("schemes.scheme_name", "steps.instructions")
+    .join("steps", "schemes.id", "steps.scheme_id")
+    .where("schemes.id", id);
 }
+
+// .join("steps", "steps.id", "schemes.steps.id")
